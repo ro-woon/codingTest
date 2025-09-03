@@ -1,28 +1,26 @@
 package leetcode.P016;
 
+import java.util.Arrays;
+
 public class P016 {
-    int minGap = Integer.MAX_VALUE;
-    int value;
 
     public int threeSumClosest(int[] nums, int target) {
-        search3Sum(nums, 0, 0, 0, target);
-        return value;
-    }
+        Arrays.sort(nums);
+        int n = nums.length;
+        int best = nums[0] + nums[1] + nums[2];
 
-    public void search3Sum(int[] nums, int sum, int depth, int index, int target) {
-        if (depth == 3) {
-            if (sum == target) {
-                minGap = 0;
-                value = sum;
-            } else if (Math.abs(target - sum) < minGap) {
-                minGap = Math.abs(target - sum);
-                value = sum;
+        for (int i = 0; i < n - 2; i++) {
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (Math.abs(sum - target) < Math.abs(best - target)) best = sum;
+
+                if (sum < target) l++;
+                else if (sum > target) r--;
+                else return target; // exact match
             }
-            return;
         }
-
-        for (int i = index; i < nums.length; i++) {
-            search3Sum(nums, sum + nums[i], depth + 1, i + 1, target);
-        }
+        return best;
     }
+
 }
