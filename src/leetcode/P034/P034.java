@@ -1,4 +1,4 @@
-package P034;
+package leetcode.P034;
 
 public class P034 {
     public int[] searchRange(int[] nums, int target) {
